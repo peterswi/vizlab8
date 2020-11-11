@@ -73,29 +73,9 @@ d3.csv('driving.csv',d3.autoType).then(drivingData=>{
         .style('opacity', 0.5)
 
     scatter.append('text')
-        .attr('x',d=>xScale(d.miles)+5)
+        .attr('x',d=>xScale(d.miles))
         .attr('y',d=>yScale(d.gas))
-        .attr('pos',d=> function position(d) {
-            const t = d3.select(this);
-            switch (d.side) {
-              case "top":
-                t.attr("text-anchor", "middle").attr("dy", "-0.7em");
-                break;
-              case "right":
-                t.attr("dx", "0.5em")
-                  .attr("dy", "0.32em")
-                  .attr("text-anchor", "start");
-                break;
-              case "bottom":
-                t.attr("text-anchor", "middle").attr("dy", "1.4em");
-                break;
-              case "left":
-                t.attr("dx", "-0.5em")
-                  .attr("dy", "0.32em")
-                  .attr("text-anchor", "end");
-                break;
-            }
-          })
+        .each(position)
         .text(d=>d.year)
         .style('font-size',10)
 })
