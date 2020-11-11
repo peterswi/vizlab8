@@ -1,0 +1,18 @@
+body{
+    background-color: lightgrey;
+
+}
+
+div{
+    display: block;
+}
+
+#header{
+    font-weight: bold;
+    color: purple;
+    text-align: center;
+
+}
+#content{
+    display: inline-block;
+}
