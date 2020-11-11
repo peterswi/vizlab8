@@ -153,6 +153,16 @@ d3.csv('driving.csv',d3.autoType).then(drivingData=>{
         .text("Gas Cost per Gallon")
         .style('text-anchor','middle')
         .style('font-size',14)
+    
+    svg.append('text')
+        .attr('class','graphTitle')
+        .attr('x', 300)
+        .attr('y', -5)
+        .attr("font-weight", "bold")
+        .attr("font-style", "italic")
+        .text("Driving Shifts Into Reverse")
+        .style('text-anchor','middle')
+        .style('font-size',18)
 
     scatter.append('text')
         .attr('x',d=>xScale(d.miles))
