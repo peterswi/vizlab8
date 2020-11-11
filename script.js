@@ -42,7 +42,7 @@ function position(d) {
     }
   }
 function halo(text) {
-text
+    text
     .select(function() {
     return this.parentNode.insertBefore(this.cloneNode(true), this);
     })
@@ -51,18 +51,22 @@ text
     .attr("stroke-width", 4)
     .attr("stroke-linejoin", "round");
 }
+function length(path) {
+    return d3.create("svg:path").attr("d", path).node().getTotalLength();
+  }
 
 d3.csv('driving.csv',d3.autoType).then(drivingData=>{
     console.log(drivingData)
 
     xScale.domain(d3.extent(drivingData, d=>d.miles)).nice()
     yScale.domain(d3.extent(drivingData, d=>d.gas)).nice()
-    //xAxis.scale(xScale).ticks(6)
-   // yAxis.scale(yScale).tickFormat(d3.format("$.2f"))
+    
     const line = d3
         .line()
         .x(d=>xScale(d.miles))
         .y(d=>yScale(d.gas))
+
+    const l = length(line(drivingData))
 
     let xAxis = g => g
         .attr("transform", `translate(0,${height})`)
@@ -124,7 +128,12 @@ d3.csv('driving.csv',d3.autoType).then(drivingData=>{
         .attr("stroke-width", 2.5)
         .attr("stroke-linejoin", "round")
         .attr("stroke-linecap", "round")
+        .attr("stroke-dasharray", `0,${l}`)
         .attr('d',line)
+        .transition()
+            .duration(5000)
+            .ease(d3.easeLinear)
+            .attr("stroke-dasharray", `${l},${l}`);
 
     svg.append('text')
         .attr('class', 'xaxisTitle')
