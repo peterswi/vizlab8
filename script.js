@@ -67,7 +67,8 @@ d3.csv('driving.csv',d3.autoType).then(drivingData=>{
         .y(d=>yScale(d.gas))
 
     const l = length(line(drivingData))
-
+    
+    //using examples from Bostock!
     let xAxis = g => g
         .attr("transform", `translate(0,${height})`)
         .call(d3.axisBottom(xScale).ticks(width / 80))
